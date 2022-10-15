@@ -47,14 +47,11 @@ async def is_available(host):
     return result
 
 
-async def availability_loop(hosts: List[str]):
+async def availability_loop(host: str):
     """
     Continuosly yields if any of the hosts is available.
     :param hosts: Which hosts should be pinged?
     :return:
     """
     while True:
-        yield any(await asyncio.gather(*[
-            is_available(host)
-            for host in hosts
-        ]))
+        yield await is_available(host)
