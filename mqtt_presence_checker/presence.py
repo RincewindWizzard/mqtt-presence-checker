@@ -1,19 +1,12 @@
 import asyncio
-import json
-
 from loguru import logger
 from time import time
 from typing import List, Callable, Any, Coroutine
 from types import AsyncGeneratorType
-
-from typepy import Bool
-
-from ping import is_available
-import asyncio_mqtt
-
+from util import default_wakeup_source
 
 class Presence(object):
-    SLEEP_INTERVALL = 1
+
     ABSENCE_THRESHOLD_SECONDS = 10
 
     def __init__(
@@ -22,7 +15,9 @@ class Presence(object):
             sinks):
         self._last_event_timestamp = time()
         self.sources = sources
+        self.sources.append(default_wakeup_source())
         self.sinks = sinks
+
         self.tasks = []
         self._active = False
         self._value_changed = asyncio.Event()
@@ -33,18 +28,20 @@ class Presence(object):
 
         last_presence = None
         while self._active:
+            logger.debug(f'run loop')
+
             # check if presence has changed
             current_presence = self.is_present
 
             if not current_presence == last_presence:
-                await self.propagate_presence_change()
+                await self._propagate_presence_change()
 
             last_presence = current_presence
 
-            self._value_changed.clear()
             await self._value_changed.wait()
+            self._value_changed.clear()
 
-    async def propagate_presence_change(self):
+    async def _propagate_presence_change(self):
         is_present = self.is_present
         logger.debug(f'propagate_presence_change: {is_present}')
         await asyncio.gather(*[sink(is_present) for sink in self.sinks])
