@@ -70,20 +70,24 @@ def load_config(conf_path: Path = None):
                 return toml.load(path.open('r'))
 
 
+# def run_daemon(config):
+#     with open(config.main.log, 'w+') as log_out:
+#         with daemon.DaemonContext(
+#                 detach_process=False,
+#                 stdout=log_out,
+#                 stderr=log_out,
+#                 pidfile=pidfile.TimeoutPIDLockFile(config.main.pidfile)
+#         ):
+#             ...
+
+
 def main(conf_path: Path = None):
     config = load_config(conf_path)
     logger.debug(config)
     config = DotWiz(config)
 
-    with open(config.main.log, 'w+') as log_out:
-        with daemon.DaemonContext(
-                detach_process=False,
-                stdout=log_out,
-                stderr=log_out,
-                pidfile=pidfile.TimeoutPIDLockFile(config.main.pidfile)
-        ):
-            logger.debug('daemon context entered')
-            asyncio.run(async_main(config))
+    logger.debug('daemon context entered')
+    asyncio.run(async_main(config))
 
 
 if __name__ == '__main__':
