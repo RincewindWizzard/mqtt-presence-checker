@@ -24,4 +24,10 @@ You can configure this daemon via a toml file in _/etc/mqtt-presence-checker/mqt
         'bob.example.org'
     ]
 
-This is rather rudimentary and might crash or behave strange. Feel free to fork and send a PR if you find any bug!
+This is rather rudimentary and might crash or behave strange. Feel free to [fork me on github](https://github.com/RincewindWizzard/mqtt-presence-checker) and send a PR if you find any bug!
+
+## Install
+
+Install from [pypi](https://pypi.org/project/mqtt-presence-checker/) with:
+
+    pip install mqtt-presence-checker
