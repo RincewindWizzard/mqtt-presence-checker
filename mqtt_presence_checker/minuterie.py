@@ -31,8 +31,9 @@ async def if_changed(old_value: State, new_value: State, func: Callable) -> Stat
 class Minuterie(object):
     """
     This class provides a timed relais like the light system in a stairwell.
-    It listens for events from sources. If an event evaluates to True the current state is set to "active".
-    After a cooldown period of self.cooldown seconds
+    It listens for events from sources. If an event evaluates to True then the current state is set to "active" (True).
+    After a cooldown period of self.cooldown seconds the state returns back to "incactive" (False).
+    Every state change is propageted to all sinks.
     """
 
     def __init__(
@@ -125,7 +126,7 @@ class Minuterie(object):
         :return:
         """
         self._last_event_timestamp = time()
-        logger.debug(f'Presence detected, updating timestamp!')
+        logger.debug(f'Updating timestamp!')
 
     @property
     def is_active(self) -> State:

@@ -21,7 +21,6 @@ async def always_true(interval: float = 1) -> AsyncGenerator[bool, Any]:
 async def test_timing():
     events = []
     cooldown = 1
-    margin = 0.5
     test_duration = 5
     precision = 1
 

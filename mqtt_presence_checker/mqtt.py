@@ -9,7 +9,7 @@ import asyncio_mqtt
 from loguru import logger
 from typepy import Bool
 
-import util
+from . import util
 
 
 class MQTTTopic(NamedTuple):

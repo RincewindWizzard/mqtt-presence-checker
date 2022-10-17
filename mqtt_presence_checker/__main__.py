@@ -1,17 +1,16 @@
+import toml
 import asyncio
 from asyncio_mqtt import Client
 from loguru import logger
-from jsonargparse import CLI
+from jsonargparse import CLI, set_docstring_parse_options
 from docstring_parser import DocstringStyle
-from jsonargparse import set_docstring_parse_options
-import toml
-import ping
-from minuterie import Minuterie
 from dotwiz import DotWiz
 
-set_docstring_parse_options(style=DocstringStyle.REST)
+from . import ping
+from .minuterie import Minuterie
+from .mqtt import mqtt_source, mqtt_sink, MQTTTopic
 
-from mqtt import mqtt_source, mqtt_sink, MQTTTopic
+set_docstring_parse_options(style=DocstringStyle.REST)
 
 
 def parse_mqtt_sensors(config, mqtt):

@@ -30,3 +30,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.extras]
 docs = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-napoleon"]
+
+
+[tool.poetry.scripts]
+mqtt-presence-checker = 'mqtt_presence_checker.__main__:main'
