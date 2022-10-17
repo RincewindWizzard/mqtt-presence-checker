@@ -32,3 +32,19 @@ This is rather rudimentary and might crash or behave strange. Feel free to [fork
 Install from [pypi](https://pypi.org/project/mqtt-presence-checker/) with:
 
     pip install mqtt-presence-checker
+
+Configure to start at boot with systemd.
+Copy [mqtt-presence-checker.service](./sample_conf/mqtt-presence-checker.service) 
+to _/lib/systemd/system/mqtt-presence-checker.service_.
+
+Enable your service:
+
+    sudo systemctl enable mqtt-presence-checker.service
+
+And start it:
+
+    sudo systemctl start mqtt-presence-checker.service
+
+Check its status:
+
+    systemctl status application.service

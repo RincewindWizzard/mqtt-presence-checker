@@ -70,7 +70,7 @@ def load_config(conf_path: Path = None):
                 return toml.load(path.open('r'))
 
 
-def main(conf_path: Path = None, d: bool = True):
+def main(conf_path: Path = None):
     config = load_config(conf_path)
     logger.debug(config)
     config = DotWiz(config)

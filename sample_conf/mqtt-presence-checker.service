@@ -1,0 +1,9 @@
+[Unit]
+Description=Check if you (or your phone) is at home and notify your smarthome via mqtt.
+
+[Service]
+Type=simple
+ExecStart=mqtt-presence-checker
+
+[Install]
+WantedBy=multi-user.target
