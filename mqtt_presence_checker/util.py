@@ -1,5 +1,8 @@
 import asyncio
+import inspect
 import json
+from typing import Any, Callable, Union
+from typing import NewType
 
 
 def try_parse_json(o):
@@ -9,7 +12,16 @@ def try_parse_json(o):
         return o
 
 
-async def default_wakeup_source(sleep_intervall=10):
-    while True:
-        yield False
-        await asyncio.sleep(sleep_intervall)
+def as_awaitable(func: Callable) -> Callable:
+    """
+    Makes an callable awaitable.
+    :param func:
+    :return:
+    """
+    if inspect.iscoroutinefunction(func):
+        return func
+    else:
+        async def coro(*args, **kwargs):
+            return func(*args, **kwargs)
+
+        return coro

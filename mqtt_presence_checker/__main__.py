@@ -11,7 +11,7 @@ from dotwiz import DotWiz
 
 set_docstring_parse_options(style=DocstringStyle.REST)
 
-from mqtt import mqtt_source, publish_to_mqtt
+from mqtt import mqtt_source, mqtt_sink, MQTTTopic
 
 
 def parse_mqtt_sensors(config, mqtt):
@@ -40,7 +40,7 @@ async def async_main(config):
                             for host in config.ping.hosts
                         ] + mqtt_sensors,
                 sinks=[
-                    publish_to_mqtt(mqtt, config.mqtt.topic)
+                    mqtt_sink(mqtt, config.mqtt.topic)
                 ],
                 cooldown=config.main.cooldown
         ) as presence:
