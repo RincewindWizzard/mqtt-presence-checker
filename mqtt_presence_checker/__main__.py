@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import daemon
 import toml
 import asyncio
 from asyncio_mqtt import Client
@@ -72,7 +72,9 @@ def load_config(conf_path: Path = None):
 def main(conf_path: Path = None):
     config = load_config(conf_path)
     logger.debug(config)
-    asyncio.run(async_main(DotWiz(config)))
+
+    with daemon.DaemonContext():
+        asyncio.run(async_main(DotWiz(config)))
 
 
 if __name__ == '__main__':
