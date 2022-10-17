@@ -3,6 +3,7 @@ import daemon
 import toml
 import asyncio
 from asyncio_mqtt import Client
+from daemon import pidfile
 from loguru import logger
 from jsonargparse import CLI, set_docstring_parse_options
 from docstring_parser import DocstringStyle
@@ -69,12 +70,20 @@ def load_config(conf_path: Path = None):
                 return toml.load(path.open('r'))
 
 
-def main(conf_path: Path = None):
+def main(conf_path: Path = None, d: bool = True):
     config = load_config(conf_path)
     logger.debug(config)
+    config = DotWiz(config)
 
-    with daemon.DaemonContext():
-        asyncio.run(async_main(DotWiz(config)))
+    with open(config.main.log, 'w+') as log_out:
+        with daemon.DaemonContext(
+                detach_process=False,
+                stdout=log_out,
+                stderr=log_out,
+                pidfile=pidfile.TimeoutPIDLockFile(config.main.pidfile)
+        ):
+            logger.debug('daemon context entered')
+            asyncio.run(async_main(config))
 
 
 if __name__ == '__main__':

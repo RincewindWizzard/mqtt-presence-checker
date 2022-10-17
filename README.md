@@ -7,6 +7,7 @@ You can configure this daemon via a toml file in _/etc/mqtt-presence-checker/mqt
 
     [main]
     cooldown = 10
+    log = "/var/log/mqtt-presence-checker.log"
 
     [mqtt]
     host = "mqtt.example.org"

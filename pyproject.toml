@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mqtt-presence-checker"
-version = "0.1.4"
+version = "0.1.5"
 description = "Check if you (or your phone) is at home and notify your smarthome via mqtt!"
 authors = ["RincewindWizzard <git@magierdinge.de>"]
 readme = "README.md"
@@ -22,9 +22,6 @@ sphinx-rtd-theme = { version = "^1.0.0", optional = true }
 python-daemon = "^2.3.1"
 
 [tool.poetry.dev-dependencies]
-
-
-[tool.poetry.group.dev.dependencies]
 
 
 [build-system]
