@@ -5,18 +5,25 @@ from typing import List, Callable, Any, Coroutine
 from types import AsyncGeneratorType
 from util import default_wakeup_source
 
-class Presence(object):
 
-    ABSENCE_THRESHOLD_SECONDS = 10
+class Minuterie(object):
+    """
+    This class provides a timed relais like the light system in a stairwell.
+    It listens for events from sources. If an event evaluates to True the current state is set to "active".
+    After a cooldown period of self.cooldown seconds
+    """
 
     def __init__(
             self,
             sources: List[AsyncGeneratorType],
-            sinks):
+            sinks,
+            cooldown: int = 10
+    ):
         self._last_event_timestamp = time()
         self.sources = sources
         self.sources.append(default_wakeup_source())
         self.sinks = sinks
+        self.cooldown = cooldown
 
         self.tasks = []
         self._active = False
@@ -80,4 +87,4 @@ class Presence(object):
 
     @property
     def is_present(self):
-        return (time() - self._last_event_timestamp) < Presence.ABSENCE_THRESHOLD_SECONDS
+        return (time() - self._last_event_timestamp) < self.cooldown

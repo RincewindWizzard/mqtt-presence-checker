@@ -1,12 +1,8 @@
 import asyncio
-import re
 import pingparsing
 from loguru import logger
-from typing import List
 
 ping_parser = pingparsing.PingParsing()
-
-ping_result = re.compile(r'^\d* packets transmitted, \d* received,.* (?P<packet_loss>\d*)% packet loss, time \d*ms$')
 
 PACKET_LOSS_THRESHOLD = 90
 
@@ -49,7 +45,7 @@ async def is_available(host):
 
 async def availability_loop(host: str):
     """
-    Continuosly yields if any of the hosts is available.
+    Continuously yields if any of the hosts is available.
     :param hosts: Which hosts should be pinged?
     :return:
     """

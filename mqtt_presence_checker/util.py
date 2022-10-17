@@ -9,8 +9,7 @@ def try_parse_json(o):
         return o
 
 
-
-async def default_wakeup_source(sleep_intervall = 10):
+async def default_wakeup_source(sleep_intervall=10):
     while True:
         yield False
         await asyncio.sleep(sleep_intervall)
