@@ -1,6 +1,12 @@
 # mqtt-presence-checker
 
-config.toml:
+Check if you (or your phone) is at home and notify your smarthome via mqtt.
+You can configure this daemon via a toml file in _/etc/mqtt-presence-checker/mqtt-presence-checker.conf_.
+
+/etc/mqtt-presence-checker/mqtt-presence-checker.conf:
+
+    [main]
+    cooldown = 10
 
     [mqtt]
     host = "mqtt.example.org"
@@ -18,6 +24,4 @@ config.toml:
         'bob.example.org'
     ]
 
-
-
-
+This is rather rudimentary and might crash or behave strange. Feel free to fork and send a PR if you find any bug!

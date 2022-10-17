@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import toml
 import asyncio
 from asyncio_mqtt import Client
@@ -12,6 +14,11 @@ from .mqtt import mqtt_source, mqtt_sink, MQTTTopic
 
 set_docstring_parse_options(style=DocstringStyle.REST)
 
+POSSIBLE_CONFIG_PATHS = [Path(path) for path in [
+    './config.toml',
+    '/etc/mqtt-presence-checker/mqtt-presence-checker.conf'
+]]
+
 
 def parse_mqtt_sensors(config, mqtt):
     try:
@@ -25,6 +32,11 @@ def parse_mqtt_sensors(config, mqtt):
 
 
 async def async_main(config):
+    """
+    Creates a minuterie from config and runs it forever.
+    :param config:
+    :return:
+    """
     async with Client(
             config.mqtt.host,
             username=config.mqtt.username,
@@ -42,15 +54,24 @@ async def async_main(config):
                     mqtt_sink(mqtt, config.mqtt.topic)
                 ],
                 cooldown=config.main.cooldown
-        ) as presence:
+        ) as _:
             while True:
-                await asyncio.sleep(1)
+                # Run forever
+                await asyncio.sleep(1000)
 
 
-def main(conf_path: str = './config.toml'):
-    config = toml.load(conf_path)
+def load_config(conf_path: Path = None):
+    if not conf_path is None:
+        return toml.load(conf_path.open('r'))
+    else:
+        for path in POSSIBLE_CONFIG_PATHS:
+            if path.is_file():
+                return toml.load(path.open('r'))
+
+
+def main(conf_path: Path = None):
+    config = load_config(conf_path)
     logger.debug(config)
-
     asyncio.run(async_main(DotWiz(config)))
 
 
