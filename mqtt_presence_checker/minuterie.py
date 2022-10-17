@@ -86,7 +86,6 @@ class Minuterie(object):
             if new_state:
                 self.update_last_event_timestamp()
 
-            logger.debug(f'set event')
             self._event.set()
 
     def _schedule_task(self, coroutine):
