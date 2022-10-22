@@ -27,24 +27,8 @@ You can configure this daemon via a toml file in _/etc/mqtt-presence-checker/mqt
 
 This is rather rudimentary and might crash or behave strange. Feel free to [fork me on github](https://github.com/RincewindWizzard/mqtt-presence-checker) and send a PR if you find any bug!
 
-## Install
+## Install with docker
 
-Install from [pypi](https://pypi.org/project/mqtt-presence-checker/) with:
+Run with docker:
 
-    pip install mqtt-presence-checker
-
-Configure to start at boot with systemd.
-Copy [mqtt-presence-checker.service](./sample_conf/mqtt-presence-checker.service) 
-to _/lib/systemd/system/mqtt-presence-checker.service_.
-
-Enable your service:
-
-    sudo systemctl enable mqtt-presence-checker.service
-
-And start it:
-
-    sudo systemctl start mqtt-presence-checker.service
-
-Check its status:
-
-    systemctl status application.service
+    docker run --cap-add net_raw --cap-add net_admin --name mqtt-presence-checker  --restart unless-stopped -v /etc/mqtt-presence-checker/:/etc/mqtt-presence-checker/ -d docker.io/rincewindwizzard/mqtt-presence-checker:latest

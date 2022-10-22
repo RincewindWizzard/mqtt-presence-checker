@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mqtt-presence-checker"
-version = "0.1.11"
+version = "0.1.16"
 description = "Check if you (or your phone) is at home and notify your smarthome via mqtt!"
 authors = ["RincewindWizzard <git@magierdinge.de>"]
 readme = "README.md"
@@ -12,7 +12,7 @@ jsonargparse = "^4.15.1"
 loguru = "^0.6.0"
 docstring-parser = "^0.15"
 asyncio-mqtt = "^0.13.0"
-pytest-asyncio = "^0.19.0"
+
 pingparsing = "^1.4.0"
 toml = "^0.10.2"
 dotwiz = "^0.4.0"
@@ -22,7 +22,7 @@ sphinx-rtd-theme = { version = "^1.0.0", optional = true }
 python-daemon = "^2.3.1"
 
 [tool.poetry.dev-dependencies]
-
+pytest-asyncio = "^0.20.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

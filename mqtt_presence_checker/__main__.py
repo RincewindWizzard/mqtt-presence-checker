@@ -62,12 +62,15 @@ async def async_main(config):
 
 
 def load_config(conf_path: Path = None):
-    if not conf_path is None:
+    if conf_path is not None:
         return toml.load(conf_path.open('r'))
     else:
         for path in POSSIBLE_CONFIG_PATHS:
-            if path.is_file():
-                return toml.load(path.open('r'))
+            try:
+                if path.is_file():
+                    return toml.load(path.open('r'))
+            except:
+                logger.warning(f'Could not load config from {path}')
 
 
 # def run_daemon(config):
@@ -83,6 +86,10 @@ def load_config(conf_path: Path = None):
 
 def main(conf_path: Path = None):
     config = load_config(conf_path)
+    if config is None:
+        logger.error('Could not find any configuration!')
+        exit(1)
+
     logger.debug(config)
     config = DotWiz(config)
 

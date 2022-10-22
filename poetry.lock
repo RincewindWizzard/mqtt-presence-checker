@@ -158,7 +158,7 @@ i18n = ["Babel (>=2.7)"]
 
 [[package]]
 name = "jsonargparse"
-version = "4.15.1"
+version = "4.15.2"
 description = "Parsing of command line options, yaml/jsonnet config files and/or environment variables based on argparse."
 category = "main"
 optional = false
@@ -396,7 +396,7 @@ six = ">=1.5"
 
 [[package]]
 name = "pytz"
-version = "2022.4"
+version = "2022.5"
 description = "World timezone definitions, modern and historical"
 category = "main"
 optional = false
@@ -733,8 +733,8 @@ jinja2 = [
     {file = "Jinja2-3.1.2.tar.gz", hash = "sha256:31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"},
 ]
 jsonargparse = [
-    {file = "jsonargparse-4.15.1-py3-none-any.whl", hash = "sha256:1f32588fa731519834749560f9e408e8fe3add409aeb5396ddf8e0943f4bb8e1"},
-    {file = "jsonargparse-4.15.1.tar.gz", hash = "sha256:a2e9b9d44c90005ef969677bec8417d60f78360282d5190c962632c791e565e3"},
+    {file = "jsonargparse-4.15.2-py3-none-any.whl", hash = "sha256:d9ccdfe3082bd7d63c2cd9abbc0fead6bead92de8b5c65bb425e82cb7c2090ed"},
+    {file = "jsonargparse-4.15.2.tar.gz", hash = "sha256:db40f6442ae85ac77b6cdcf82c676fa38ef4ada1445e208db516fbd49eb8f757"},
 ]
 lockfile = [
     {file = "lockfile-0.12.2-py2.py3-none-any.whl", hash = "sha256:6c3cb24f344923d30b2785d5ad75182c8ea7ac1b6171b08657258ec7429d50fa"},
@@ -856,8 +856,8 @@ python-dateutil = [
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
 pytz = [
-    {file = "pytz-2022.4-py2.py3-none-any.whl", hash = "sha256:2c0784747071402c6e99f0bafdb7da0fa22645f06554c7ae06bf6358897e9c91"},
-    {file = "pytz-2022.4.tar.gz", hash = "sha256:48ce799d83b6f8aab2020e369b627446696619e79645419610b9facd909b3174"},
+    {file = "pytz-2022.5-py2.py3-none-any.whl", hash = "sha256:335ab46900b1465e714b4fda4963d87363264eb662aab5e65da039c25f1f5b22"},
+    {file = "pytz-2022.5.tar.gz", hash = "sha256:c4d88f472f54d615e9cd582a5004d1e5f624854a6a27a6211591c251f22a6914"},
 ]
 pyyaml = [
     {file = "PyYAML-6.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d4db7c7aef085872ef65a8fd7d6d09a14ae91f691dec3e87ee5ee0539d516f53"},

@@ -31,17 +31,41 @@ ENV PYTHONUNBUFFERED=1 \
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y iputils-ping
+
+# `builder-base` stage is used to build deps + create our virtual environment
+FROM python-base as builder-base
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+        # deps for installing poetry
+        curl \
+        # deps for building python deps
+        build-essential
+
+# install poetry - respects $POETRY_VERSION & $POETRY_HOME
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# copy project requirement files here to ensure they will be cached.
+WORKDIR $PYSETUP_PATH
+COPY poetry.lock pyproject.toml ./
+
+# install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
+RUN poetry install --no-dev
+
+#RUN poetry export -f requirements.txt --without-hashes | pip  install -r /dev/stdin
+
 
 
 # `production` image used for runtime
 FROM python-base as production
 ENV FASTAPI_ENV=production
-#COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+RUN apt-get update && apt-get upgrade -y && apt-get install -y iputils-ping
 
+COPY ./ /app/
 WORKDIR /app
+RUN groupadd -r app && useradd --no-log-init -r -g app app && chown -R app:app /app
 
-RUN pip install mqtt-presence-checker==0.1.11
-RUN mkdir /var/log/mqtt-presence-checker/
+User app
 
-CMD ["mqtt-presence-checker"]
+
+CMD ["python", "-m", "mqtt_presence_checker"]
