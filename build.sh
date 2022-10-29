@@ -5,6 +5,9 @@ DOCKER_REPO="rincewindwizzard/mqtt-presence-checker"
 # replace with docker if needed
 PODMAN=podman
 
+# bump patch version to create a new unique version number
+poetry version patch
+
 poetry build
 poetry publish
 
@@ -16,3 +19,5 @@ $PODMAN build -t "$DOCKER_REPO:latest" -t "$DOCKER_REPO:$VERSION" .
 
 $PODMAN push "$DOCKER_REPO:latest"
 $PODMAN push "$DOCKER_REPO:$VERSION"
+
+ssh root@smarthome podman auto-update

@@ -48,7 +48,7 @@ async def async_main(config):
 
         async with Minuterie(
                 sources=[
-                            ping.availability_loop(host)
+                            ping.availability_loop(host, config.ping.interval)
                             for host in config.ping.hosts
                         ] + mqtt_sensors,
                 sinks=[

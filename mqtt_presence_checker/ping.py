@@ -7,7 +7,7 @@ ping_parser = pingparsing.PingParsing()
 PACKET_LOSS_THRESHOLD = 90
 
 
-async def ping(host, count=5):
+async def ping(host, count=5) -> dict:
     """
     Calls the ping program and parses the result asynchronously.
     :param host: Host to be pinged
@@ -27,7 +27,7 @@ async def ping(host, count=5):
     return result
 
 
-async def is_available(host):
+async def is_available(host) -> bool:
     """
     CHecks if a given host is available.
     :param host: hostname of the host to be checked
@@ -43,11 +43,15 @@ async def is_available(host):
     return result
 
 
-async def availability_loop(host: str):
+async def availability_loop(host: str, interval: int = 0):
     """
     Continuously yields if any of the hosts is available.
-    :param hosts: Which hosts should be pinged?
+    :param interval: Downtime after successfully found host
+    :param host: Which hosts should be pinged?
     :return:
     """
     while True:
-        yield await is_available(host)
+        result = await is_available(host)
+        yield result
+        if result:
+            await asyncio.sleep(interval)

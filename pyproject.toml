@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mqtt-presence-checker"
-version = "0.1.16"
+version = "0.1.19"
 description = "Check if you (or your phone) is at home and notify your smarthome via mqtt!"
 authors = ["RincewindWizzard <git@magierdinge.de>"]
 readme = "README.md"
